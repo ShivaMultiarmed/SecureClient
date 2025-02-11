@@ -1,4 +1,4 @@
-package mikhail.shell.security.education.client
+package mikhail.shell.education.security.client
 
 import java.math.BigInteger
 import java.security.SecureRandom
@@ -22,10 +22,8 @@ fun generatePrime(bits: Int): BigInteger {
 fun generateSafePrime(q: BigInteger): BigInteger {
     var p: BigInteger
     do {
-        val k = BigInteger(
-            768,
-            random
-        ).setBit(767) // Гарантирует единицу в самом старшем бите, а следовательно число становится достаточно большим.
+        // Гарантирует единицу в самом старшем бите, а следовательно число становится достаточно большим.
+        val k = BigInteger(768, random).setBit(767)
         p = k.multiply(q).add(BigInteger.ONE)
     } while (!p.isProbablePrime(100))
     return p
