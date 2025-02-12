@@ -1,6 +1,7 @@
 package mikhail.shell.education.security.client
 
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) = runBlocking {
     var type = Protocol.DEFFIE_HELLMAN
@@ -16,8 +17,15 @@ fun main(args: Array<String>) = runBlocking {
             }
         }
     }
-    val client: Client = DFIClient(name)
-    client.connect()
+    val client: Client = when (type) {
+        Protocol.DEFFIE_HELLMAN -> DFClient(name)
+        Protocol.DEFFIE_HELLMAN_IMPROVED -> DFIClient(name)
+        else -> DFClient(name)
+    }
+    val timeSpent = measureTimeMillis {
+        client.connect()
+    }
+    println("Результат выполнен за $timeSpent мс.")
 }
 
 enum class Protocol {
