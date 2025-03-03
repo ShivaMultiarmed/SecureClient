@@ -1,6 +1,11 @@
-package mikhail.shell.education.security.client
+package mikhail.shell.education.security.client.common
 
 import kotlinx.coroutines.*
+import mikhail.shell.education.security.client.elliptic.DhiEllipticClient
+import mikhail.shell.education.security.client.elliptic.MqvEllipticClient
+import mikhail.shell.education.security.client.field.DFFieldClient
+import mikhail.shell.education.security.client.field.DFIFieldClient
+import mikhail.shell.education.security.client.field.MQVFieldClient
 import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) = runBlocking {

@@ -1,22 +1,19 @@
-package mikhail.shell.education.security.client
+package mikhail.shell.education.security.client.field
 
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
-import java.math.BigInteger
+import mikhail.shell.education.security.client.common.generateSecretKey
 
-class DFIFieldClient(name: String): BaseFieldClient(name) {
-    lateinit var q: BigInteger
+class DFFieldClient(name: String): BaseFieldClient(name) {
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {
             send(Frame.Text(name))
-            q = receiveNumber()
             p = receiveNumber()
             g = receiveNumber()
-            println("q = $q")
             println("p = $p")
             println("g = $g")
 
-            secretKey = generateSecretKey(q)
+            secretKey = generateSecretKey(p)
             println("секретный ключ x = $secretKey")
             publicKey = g.modPow(secretKey, p)
             println("открытый ключ X = $publicKey")

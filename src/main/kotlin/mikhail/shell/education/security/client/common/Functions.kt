@@ -1,4 +1,4 @@
-package mikhail.shell.education.security.client
+package mikhail.shell.education.security.client.common
 
 import java.math.BigInteger
 import java.security.SecureRandom
@@ -95,4 +95,50 @@ fun Pair<BigInteger, BigInteger>.evaluateComposition(n: BigInteger, modNumber: B
 
 fun BigInteger.getBit(n: BigInteger): BigInteger {
     return this shr n.toInt() and BigInteger.ONE
+}
+
+fun Point?.compose(other: Point?, modNumber: BigInteger): Point? {
+    return if (this == null) other
+    else if (other == null) this
+    else this.compose(other, modNumber)
+}
+
+fun Point.compose(other: Point, modNumber: BigInteger): Point {
+    val lambda1 = (this.x * other.z.pow(2)).mod(modNumber)
+    val lambda2 = (other.x * this.z.pow(2)).mod(modNumber)
+    val lambda3 = (lambda2 - lambda1).mod(modNumber)
+    val lambda4 = (this.y * other.z.pow(3)).mod(modNumber)
+    val lambda5 = (other.y * this.z.pow(3)).mod(modNumber)
+    val lambda6 = (lambda5 - lambda4).mod(modNumber)
+    val lambda7 = (lambda1 + lambda2).mod(modNumber)
+    val lambda8 = (lambda4 + lambda5).mod(modNumber)
+    val Z3 = (this.z * other.z * lambda3).mod(modNumber)
+    val X3 = (lambda6.pow(2) - lambda7 * lambda3.pow(2)).mod(modNumber)
+    val lambda9 = lambda7 * lambda3.pow(2) - BigInteger.TWO * X3
+    val Y3 = (lambda9 * lambda6 - lambda8 * lambda3.pow(3)) * BigInteger.TWO.modInverse(modNumber)
+    return Point(X3, Y3, Z3)
+}
+
+fun Point.double(modNumber: BigInteger, a: BigInteger): Point {
+    val lambda1 = (BigInteger("3") * this.x.pow(2) + a * this.z.pow(4)).mod(modNumber)
+    val lambda2 = (BigInteger("4") * this.x * this.y.pow(2)).mod(modNumber)
+    val Z3 = (BigInteger.TWO * this.y * this.z).mod(modNumber)
+    val X3 = (lambda1.pow(2) - BigInteger.TWO * lambda2).mod(modNumber)
+    val lambda3 = (BigInteger("8") * this.y.pow(4)).mod(modNumber)
+    val Y3 = (lambda1 * (lambda2 - X3) - lambda3).mod(modNumber)
+    return Point(X3, Y3, Z3)
+}
+
+fun Point.multiply(n: BigInteger, modNumber: BigInteger, a: BigInteger): Point {
+    var result = Point(BigInteger.ZERO, BigInteger.ONE, BigInteger.ZERO)
+    var addend = this
+    var exp = n
+    while (exp > BigInteger.ZERO) {
+        if (exp.testBit(0)) {
+            result = result.compose(addend, modNumber)
+        }
+        addend = addend.double(modNumber, a)
+        exp = exp shr 1
+    }
+    return result
 }

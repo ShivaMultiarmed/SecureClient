@@ -1,7 +1,9 @@
-package mikhail.shell.education.security.client
+package mikhail.shell.education.security.client.elliptic
 
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
+import mikhail.shell.education.security.client.common.evaluateComposition
+import mikhail.shell.education.security.client.common.generateSecretKey
 
 class DhiEllipticClient(name: String): BaseEllipticClient(name) {
     override suspend fun connect() {

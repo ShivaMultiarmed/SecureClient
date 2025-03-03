@@ -1,7 +1,8 @@
-package mikhail.shell.education.security.client
+package mikhail.shell.education.security.client.field
 
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
+import mikhail.shell.education.security.client.common.generateSecretKey
 import java.math.BigInteger
 
 class MQVFieldClient(name: String): BaseFieldClient(name) {
