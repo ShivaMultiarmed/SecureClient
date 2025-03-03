@@ -4,7 +4,7 @@ import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 import java.math.BigInteger
 
-class DFIClient(name: String): BaseClient(name) {
+class DFIFieldClient(name: String): BaseFieldClient(name) {
     lateinit var q: BigInteger
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {

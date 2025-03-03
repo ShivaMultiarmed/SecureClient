@@ -3,7 +3,7 @@ package mikhail.shell.education.security.client
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 
-class DFClient(name: String): BaseClient(name) {
+class DFFieldClient(name: String): BaseFieldClient(name) {
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {
             send(Frame.Text(name))

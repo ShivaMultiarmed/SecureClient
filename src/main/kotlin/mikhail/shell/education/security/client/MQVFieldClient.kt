@@ -4,7 +4,7 @@ import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 import java.math.BigInteger
 
-class MQVClient(name: String): BaseClient(name) {
+class MQVFieldClient(name: String): BaseFieldClient(name) {
     private var q: BigInteger? = null
     private var secretSessionKey: BigInteger? = null
     private var publicSessionKey: BigInteger? = null

@@ -18,9 +18,9 @@ fun main(args: Array<String>) = runBlocking {
         }
     }
     val client: Client = when (type) {
-        Protocol.DEFFIE_HELLMAN -> DFClient(name)
-        Protocol.DEFFIE_HELLMAN_IMPROVED -> DFIClient(name)
-        else -> MQVClient(name)
+        Protocol.DEFFIE_HELLMAN -> DFFieldClient(name)
+        Protocol.DEFFIE_HELLMAN_IMPROVED -> DFIFieldClient(name)
+        else -> MQVFieldClient(name)
     }
     val timeSpent = measureTimeMillis {
         client.connect()

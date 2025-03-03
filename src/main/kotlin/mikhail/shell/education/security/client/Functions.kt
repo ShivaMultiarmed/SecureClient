@@ -9,7 +9,7 @@ fun generateSecretKey(q: BigInteger): BigInteger {
     var secret: BigInteger
     do {
         secret = BigInteger(q.bitLength(), random)
-    } while (secret < BigInteger.ONE || secret >= q)
+    } while (secret < BigInteger.ONE || secret >= q || !secret.isProbablePrime(100))
     return secret
 }
 
@@ -45,4 +45,54 @@ fun findGenerator(p: BigInteger, q: BigInteger): BigInteger {
         }
     }
     throw RuntimeException("Не удалось найти генератор циклической подгруппы порядка q за $maxAttempts попыток")
+}
+
+fun Pair<BigInteger, BigInteger>.evaluateCompositionByTwo(modNumber: BigInteger, a: BigInteger): Pair<BigInteger, BigInteger> {
+    return this.evaluateComposition(this, modNumber, a)
+}
+
+fun Pair<BigInteger, BigInteger>.evaluateComposition(
+    other: Pair<BigInteger, BigInteger>,
+    modNumber: BigInteger,
+    a: BigInteger? = null
+):Pair<BigInteger, BigInteger> {
+    val (x1, y1) = this
+    if (this == other) {
+        val numerator = (BigInteger("3") * x1.modPow(BigInteger.TWO, modNumber) + a!!).mod(modNumber)
+        val denominator = (BigInteger.TWO * y1).mod(modNumber)
+        val denominatorInversed = denominator.modInverse(modNumber)
+        val k = (numerator * denominatorInversed).mod(modNumber)
+        val x3 = (k.modPow(BigInteger.TWO, modNumber) - BigInteger.TWO * x1).mod(modNumber)
+        val y3 = (k * (x1 - x3) - y1).mod(modNumber)
+        return x3 to y3
+    } else {
+        val (x2, y2) = other
+        val numerator = (y2 - y1).mod(modNumber)
+        val denominator = (x2 - x1).mod(modNumber)
+        val denominatorInversed = denominator.modInverse(modNumber)
+        val k = (numerator * denominatorInversed).mod(modNumber)
+        val x3 = (k.pow(2) - x1 - x2).mod(modNumber)
+        val y3 = (k * (x1 - x3) - y1).mod(modNumber)
+        return x3 to y3
+    }
+}
+
+fun Pair<BigInteger, BigInteger>.evaluateComposition(n: BigInteger, modNumber: BigInteger, a: BigInteger): Pair<BigInteger, BigInteger> {
+    var result: Pair<BigInteger, BigInteger>? = null
+    var addend: Pair<BigInteger, BigInteger>? = this
+
+    var k = n
+    while (k > BigInteger.ZERO) {
+        if (k.testBit(0)) {
+            result = if (result == null) addend
+            else result.evaluateComposition(addend!!, modNumber)
+        }
+        addend = addend?.evaluateCompositionByTwo(modNumber, a)
+        k = k.shiftRight(1)
+    }
+    return result ?: (BigInteger.ZERO to BigInteger.ZERO)
+}
+
+fun BigInteger.getBit(n: BigInteger): BigInteger {
+    return this shr n.toInt() and BigInteger.ONE
 }

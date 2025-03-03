@@ -6,7 +6,7 @@ import io.ktor.websocket.*
 import java.math.BigInteger
 import java.nio.ByteBuffer
 
-abstract class BaseClient(val name: String): Client {
+abstract class BaseFieldClient(val name: String): Client {
     protected val client = HttpClient {
         install(WebSockets.Plugin)
     }
