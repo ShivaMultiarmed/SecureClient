@@ -18,7 +18,7 @@ class DiffieHellmanEllipticClient(name: String): BaseEllipticClient(name) {
             val xG = receiveNumber()
             val yG = receiveNumber()
             G = xG to yG
-            println("p = $G")
+            println("G = $G")
             secretKey = generateSecretKey(q!!)
             println("секретный ключ = $secretKey")
             publicKey = G!!.evaluateComposition(secretKey!!, p!!, a!!)
