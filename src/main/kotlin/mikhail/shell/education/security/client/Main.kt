@@ -24,9 +24,13 @@ fun main(args: Array<String>) = runBlocking {
         Protocol.DEFFIE_HELLMAN -> DFFieldClient(name)
         Protocol.DEFFIE_HELLMAN_IMPROVED -> when (subType) {
             MathType.ALGEBRAIC -> DFIFieldClient(name)
-            MathType.ELLIPTIC -> DiffieHellmanEllipticClient(name)
+            MathType.ELLIPTIC -> DhiEllipticClient(name)
         }
-        else -> MQVFieldClient(name)
+        Protocol.MQV -> when(subType) {
+            MathType.ALGEBRAIC -> MQVFieldClient(name)
+            MathType.ELLIPTIC -> MqvEllipticClient(name)
+        }
+
     }
     val timeSpent = measureTimeMillis {
         client.connect()

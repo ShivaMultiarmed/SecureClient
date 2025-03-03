@@ -16,7 +16,7 @@ abstract class BaseEllipticClient(val name: String): Client {
     protected var b: BigInteger? = null
     protected var G: Pair<BigInteger, BigInteger>? = null
     protected var secretKey: BigInteger? = null
-    protected var sharedSecretKey: BigInteger? = null
+    protected var sharedSecretKey: Pair<BigInteger, BigInteger>? = null
     var publicKey: Pair<BigInteger, BigInteger>? = null
     protected suspend fun WebSocketSession.receiveNumber(): BigInteger {
         return BigInteger((incoming.receive() as Frame.Binary).readBytes())

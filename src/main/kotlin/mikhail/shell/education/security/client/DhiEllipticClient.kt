@@ -3,7 +3,7 @@ package mikhail.shell.education.security.client
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 
-class DiffieHellmanEllipticClient(name: String): BaseEllipticClient(name) {
+class DhiEllipticClient(name: String): BaseEllipticClient(name) {
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {
             send(Frame.Text(name))
@@ -29,7 +29,7 @@ class DiffieHellmanEllipticClient(name: String): BaseEllipticClient(name) {
             val otherPublicKeyY = receiveNumber()
             val otherPublicKey = otherPublicKeyX to otherPublicKeyY
             println("$name: чужой открытый ключ = $otherPublicKey")
-            val sharedSecretKey = otherPublicKey.evaluateComposition(secretKey!!, p!!, a!!)
+            sharedSecretKey = otherPublicKey.evaluateComposition(secretKey!!, p!!, a!!)
             println("$name: общий секретный ключ = $sharedSecretKey")
         }
     }
