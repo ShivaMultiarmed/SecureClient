@@ -8,3 +8,10 @@ data class Point(
     val z: BigInteger
 )
 
+fun Pair<BigInteger, BigInteger>.toPoint(): Point {
+    return Point(this.first, this.second, BigInteger.ONE)
+}
+
+fun Point.toPair(): Pair<BigInteger, BigInteger> {
+    return this.x to this.y
+}

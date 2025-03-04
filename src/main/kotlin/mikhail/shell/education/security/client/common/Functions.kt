@@ -97,12 +97,6 @@ fun BigInteger.getBit(n: BigInteger): BigInteger {
     return this shr n.toInt() and BigInteger.ONE
 }
 
-fun Point?.compose(other: Point?, modNumber: BigInteger): Point? {
-    return if (this == null) other
-    else if (other == null) this
-    else this.compose(other, modNumber)
-}
-
 fun Point.compose(other: Point, modNumber: BigInteger): Point {
     val lambda1 = (this.x * other.z.pow(2)).mod(modNumber)
     val lambda2 = (other.x * this.z.pow(2)).mod(modNumber)
@@ -114,8 +108,8 @@ fun Point.compose(other: Point, modNumber: BigInteger): Point {
     val lambda8 = (lambda4 + lambda5).mod(modNumber)
     val Z3 = (this.z * other.z * lambda3).mod(modNumber)
     val X3 = (lambda6.pow(2) - lambda7 * lambda3.pow(2)).mod(modNumber)
-    val lambda9 = lambda7 * lambda3.pow(2) - BigInteger.TWO * X3
-    val Y3 = (lambda9 * lambda6 - lambda8 * lambda3.pow(3)) * BigInteger.TWO.modInverse(modNumber)
+    val lambda9 = (lambda7 * lambda3.pow(2) - BigInteger.TWO * X3).mod(modNumber)
+    val Y3 = ((lambda9 * lambda6 - lambda8 * lambda3.pow(3)) * BigInteger.TWO.modInverse(modNumber)).mod(modNumber)
     return Point(X3, Y3, Z3)
 }
 
