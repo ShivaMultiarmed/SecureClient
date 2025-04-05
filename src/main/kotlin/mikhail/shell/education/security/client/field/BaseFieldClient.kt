@@ -16,9 +16,18 @@ abstract class BaseFieldClient(val name: String): Client {
     protected lateinit var sharedSecretKey: BigInteger
     lateinit var g: BigInteger
     lateinit var p: BigInteger
+    override suspend fun disconnect() {
+        TODO("Not yet implemented")
+    }
+
     protected suspend fun WebSocketSession.receiveNumber(): BigInteger {
         return BigInteger((incoming.receive() as Frame.Binary).readBytes())
     }
+
+    override suspend fun transfer(data: ByteArray) {
+        TODO("Not yet implemented")
+    }
+
     protected suspend fun WebSocketSession.sendNumber(number: BigInteger) {
         send(
             Frame.Binary(
