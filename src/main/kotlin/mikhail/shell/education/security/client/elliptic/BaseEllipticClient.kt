@@ -15,9 +15,6 @@ abstract class BaseEllipticClient(val name: String): Client {
     protected var q: BigInteger? = null
     protected var a: BigInteger? = null
     protected var b: BigInteger? = null
-    override suspend fun transfer(data: ByteArray) {
-        TODO("Not yet implemented")
-    }
 
     protected var G: Pair<BigInteger, BigInteger>? = null
     protected var secretKey: BigInteger? = null

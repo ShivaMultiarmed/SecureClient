@@ -5,6 +5,10 @@ import io.ktor.websocket.*
 import mikhail.shell.education.security.client.common.generateSecretKey
 
 class DFFieldClient(name: String): BaseFieldClient(name) {
+    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {
             send(Frame.Text(name))

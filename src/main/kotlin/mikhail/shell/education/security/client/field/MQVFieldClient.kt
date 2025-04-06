@@ -43,4 +43,8 @@ class MQVFieldClient(name: String): BaseFieldClient(name) {
             println("Общий секретный ключ: $SA")
         }
     }
+
+    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
+        TODO("Not yet implemented")
+    }
 }

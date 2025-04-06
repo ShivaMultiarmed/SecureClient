@@ -9,6 +9,10 @@ import java.math.BigInteger
 class MqvEllipticClient(name: String): BaseEllipticClient(name) {
     private var secretSessionKey: BigInteger? = null
     var publicSessionKey: Pair<BigInteger, BigInteger>? = null
+    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {
             send(Frame.Text(name))

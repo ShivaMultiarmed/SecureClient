@@ -35,4 +35,8 @@ class DhiEllipticClient(name: String): BaseEllipticClient(name) {
             println("$name: общий секретный ключ = $sharedSecretKey")
         }
     }
+
+    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
+        TODO("Not yet implemented")
+    }
 }

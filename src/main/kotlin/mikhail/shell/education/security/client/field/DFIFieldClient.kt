@@ -7,6 +7,10 @@ import java.math.BigInteger
 
 class DFIFieldClient(name: String): BaseFieldClient(name) {
     lateinit var q: BigInteger
+    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun connect() {
         client.webSocket("ws://127.0.0.1:9876/handshake") {
             send(Frame.Text(name))

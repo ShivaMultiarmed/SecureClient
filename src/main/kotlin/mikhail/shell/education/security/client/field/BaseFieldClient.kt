@@ -24,10 +24,6 @@ abstract class BaseFieldClient(val name: String): Client {
         return BigInteger((incoming.receive() as Frame.Binary).readBytes())
     }
 
-    override suspend fun transfer(data: ByteArray) {
-        TODO("Not yet implemented")
-    }
-
     protected suspend fun WebSocketSession.sendNumber(number: BigInteger) {
         send(
             Frame.Binary(
