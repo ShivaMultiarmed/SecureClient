@@ -1,8 +1,9 @@
 import org.gradle.api.file.DuplicatesStrategy.EXCLUDE
 
 plugins {
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "1.9.0"
     application
+    id("org.jetbrains.compose") version "1.5.0"
 }
 
 group = "mikhail.shell.web.application"
@@ -10,10 +11,15 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    google()
 }
 
 dependencies {
+    implementation(compose.desktop.currentOs)
+
     testImplementation(kotlin("test"))
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
     implementation("io.ktor:ktor-server-core:2.3.4")
     implementation("io.ktor:ktor-server-netty:2.3.4")
@@ -34,7 +40,7 @@ tasks.jar {
     }
     from (sourceSets.main.get().output)
     dependsOn(configurations.runtimeClasspath)
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    duplicatesStrategy = EXCLUDE
     from ({
         configurations.runtimeClasspath.get().filter { it.exists() }.map { zipTree(it) }
     })
