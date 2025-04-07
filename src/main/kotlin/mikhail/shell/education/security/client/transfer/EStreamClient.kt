@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import mikhail.shell.education.security.client.common.Client
 import java.io.File
 import java.math.BigInteger
+import java.security.SecureRandom
 import java.util.*
 
 enum class State {
@@ -24,6 +25,7 @@ class EStreamClient(state: State) : Client {
         const val BUFFER_SIZE = 1024
         val K = BigInteger("43327941536451757547021212229086144792243993750900499115474182045548247479320").toByteArray().hash()
     }
+    private val random: Random = SecureRandom()
     private lateinit var session: DefaultWebSocketSession
     private val state = MutableStateFlow(state)
     private lateinit var socket: Socket
@@ -118,6 +120,8 @@ class EStreamClient(state: State) : Client {
         return receivedData
     }
     private fun generateIV(): ByteArray {
-        return BigInteger.probablePrime(1024, Random()).toByteArray().hash()
+        return ByteArray(16).also {
+            random.nextBytes(it)
+        }
     }
 }
