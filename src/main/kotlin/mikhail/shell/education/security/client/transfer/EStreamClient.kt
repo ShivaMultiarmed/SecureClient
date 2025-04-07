@@ -44,21 +44,23 @@ class EStreamClient(state: State) : Client {
             }
             httpClient.webSocket("ws://localhost:9999/transfer") {
                 session = this
-                print((if (state.value == State.LISTENING) "Receiver" else "Sender") + " is connected")
+                print((if (state.value == State.LISTENING) "Получатель" else "Отправитель") + " подключен\n")
                 while(isActive) {
                     if (state.value == State.LISTENING) {
                         val fileSize = (incoming.receive() as Frame.Text).readText().toLong()
-                        print("Received file size: ${fileSize}b")
+                        print("Полученный размер файла: ${fileSize}b\n")
                         val fileName = (incoming.receive() as Frame.Text).readText()
-                        print("Received file name: $fileName")
+                        print("Полученное имя файла: $fileName\n")
                         val file = File("D:/Downloads/$fileName")
                         file.createNewFile()
                         var bytesLeft = fileSize
                         while (bytesLeft > 0) {
                             val iv = (incoming.receive() as Frame.Binary).readBytes()
+                            println("Полученный IV: ${iv.toHexString()}\n")
                             val encryptedBytesPart = (incoming.receive() as Frame.Binary).readBytes()
-                            println("Received data part: ${encryptedBytesPart.toHexString()}")
+                            println("Полученные зашифрованные байты: ${encryptedBytesPart.toHexString()}\n")
                             val bytesPart = encryptedBytesPart.encrypt(K, iv)
+                            println("Полученные исходные байты: ${bytesPart.toHexString()}\n")
                             file.appendBytes(bytesPart)
                             bytesLeft -= bytesPart.size
                         }
@@ -76,14 +78,15 @@ class EStreamClient(state: State) : Client {
         val length = data.size
         var bytesLeft = length
         session.outgoing.send(Frame.Text(length.toString()))
-        print("Sent file size: ${length}b")
+        print("Отправленный размер файла: ${length}b\n")
         session.outgoing.send(Frame.Text(meta["name"].toString()))
-        print("Sent file name: ${meta["name"]}")
+        print("Отправленное название файла: ${meta["name"]}\n")
         while (bytesLeft > 0) {
             val isFinal = bytesLeft < BUFFER_SIZE
             val start = length - bytesLeft
             val end = (start + BUFFER_SIZE).coerceAtMost(length)
             val dataPart = data.sliceArray(start until end)
+            println("Исходные байты данных: ${dataPart.toHexString()}\n")
             val iv = generateIV()
             val encryptedDataPart = dataPart.encrypt(K, iv)
             session.outgoing.send(
@@ -92,14 +95,14 @@ class EStreamClient(state: State) : Client {
                     data = iv
                 )
             )
-            println("Sent IV: ${iv.toHexString()}")
+            println("Отправленный IV: ${iv.toHexString()}\n")
             session.outgoing.send(
                 Frame.Binary(
                     fin = true,
                     data = encryptedDataPart
                 )
             )
-            println("Sent byte data: ${encryptedDataPart.toHexString()}")
+            println("Отправленные зашифрованные байты: ${encryptedDataPart.toHexString()}\n")
             bytesLeft -= encryptedDataPart.size
         }
     }
