@@ -5,16 +5,14 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
+import io.ktor.utils.io.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import mikhail.shell.education.security.client.common.Client
 import java.io.File
 import java.math.BigInteger
 import java.util.*
-import kotlin.math.min
 
 enum class State {
     TRANSFERRING, LISTENING
@@ -29,6 +27,8 @@ class EStreamClient(state: State) : Client {
     private lateinit var session: DefaultWebSocketSession
     private val state = MutableStateFlow(state)
     private lateinit var socket: Socket
+    private lateinit var ecnryptReadChannel: ByteReadChannel
+    private lateinit var ecnryptWriteChannel: ByteWriteChannel
     private lateinit var listeningJob: Job
     private val httpClient = HttpClient(CIO) {
         install(WebSockets)
@@ -37,7 +37,11 @@ class EStreamClient(state: State) : Client {
     override suspend fun connect() {
         coroutineScope.launch {
             val port = if (state.value == State.LISTENING) 9000 else 8000
-            socket = aSocket(SelectorManager()).tcp().connect("localhost", port)
+            launch {
+                socket = aSocket(SelectorManager()).tcp().connect("localhost", port)
+                ecnryptReadChannel = socket.openReadChannel()
+                ecnryptWriteChannel = socket.openWriteChannel(autoFlush = true)
+            }
             httpClient.webSocket("ws://localhost:9999/transfer") {
                 session = this
                 print((if (state.value == State.LISTENING) "Receiver" else "Sender") + " is connected")
@@ -47,7 +51,7 @@ class EStreamClient(state: State) : Client {
                         print("Received file size: ${fileSize}b")
                         val fileName = (incoming.receive() as Frame.Text).readText()
                         print("Received file name: $fileName")
-                        val file = File("./$fileName")
+                        val file = File("D:/Downloads/$fileName")
                         file.createNewFile()
                         var bytesLeft = fileSize
                         while (bytesLeft > 0) {
@@ -103,13 +107,11 @@ class EStreamClient(state: State) : Client {
         socket.close()
     }
     private suspend fun ByteArray.encrypt(key: ByteArray, iv: ByteArray): ByteArray {
-        val input = socket.openReadChannel()
-        val output = socket.openWriteChannel(autoFlush = true)
-        output.writeFully(key, 0, key.size)
-        output.writeFully(iv, 0, iv.size)
-        output.writeFully(this, 0, size)
+        ecnryptWriteChannel.writeFully(key, 0, key.size)
+        ecnryptWriteChannel.writeFully(iv, 0, iv.size)
+        ecnryptWriteChannel.writeFully(this, 0, size)
         val receivedData = ByteArray(size)
-        input.readAvailable(receivedData, 0, receivedData.size)
+        ecnryptReadChannel.readAvailable(receivedData, 0, receivedData.size)
         return receivedData
     }
     private fun generateIV(): ByteArray {
