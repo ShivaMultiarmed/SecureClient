@@ -29,7 +29,8 @@ suspend fun main(args: Array<String>) {
     client.connect()
     application {
         Window(
-            onCloseRequest = ::exitApplication
+            onCloseRequest = ::exitApplication,
+            title = if (state == State.TRANSFERRING) "Отправитель" else "Получатель"
         ) {
             ClientScreen(
                 frame = window,
