@@ -17,6 +17,7 @@ import mikhail.shell.education.security.client.common.Client
 import java.awt.FileDialog
 import java.awt.Frame
 import java.io.File
+import java.util.UUID
 
 suspend fun main(args: Array<String>) {
     val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -25,7 +26,8 @@ suspend fun main(args: Array<String>) {
         "listen" -> State.LISTENING
         else -> throw IllegalStateException()
     }
-    val client: Client = EStreamClient(state)
+    val userID = UUID.randomUUID().toString()
+    val client: Client = EStreamClient(userID, state)
     client.connect()
     application {
         Window(

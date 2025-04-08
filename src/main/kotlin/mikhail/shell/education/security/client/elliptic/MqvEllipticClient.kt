@@ -6,7 +6,7 @@ import mikhail.shell.education.security.client.common.evaluateComposition
 import mikhail.shell.education.security.client.common.generateSecretKey
 import java.math.BigInteger
 
-class MqvEllipticClient(name: String): BaseEllipticClient(name) {
+open class MqvEllipticClient(userID: String): BaseEllipticClient(userID) {
     private var secretSessionKey: BigInteger? = null
     var publicSessionKey: Pair<BigInteger, BigInteger>? = null
     override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {

@@ -10,6 +10,7 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import mikhail.shell.education.security.client.common.Client
+import mikhail.shell.education.security.client.elliptic.MqvEllipticClient
 import java.io.File
 import java.math.BigInteger
 import java.security.SecureRandom
@@ -19,12 +20,13 @@ enum class State {
     TRANSFERRING, LISTENING
 }
 
-class EStreamClient(state: State) : Client {
+class EStreamClient(userID: String, state: State) : MqvEllipticClient(userID) {
     private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private companion object {
         const val BUFFER_SIZE = 1024
-        val K = BigInteger("43327941536451757547021212229086144792243993750900499115474182045548247479320").toByteArray().hash()
+        //val K = BigInteger("43327941536451757547021212229086144792243993750900499115474182045548247479320").toByteArray().hash()
     }
+    private lateinit var K: ByteArray
     private val random: Random = SecureRandom()
     private lateinit var session: DefaultWebSocketSession
     private val state = MutableStateFlow(state)
@@ -44,30 +46,34 @@ class EStreamClient(state: State) : Client {
                 ecnryptReadChannel = socket.openReadChannel()
                 ecnryptWriteChannel = socket.openWriteChannel(autoFlush = true)
             }
-            httpClient.webSocket("ws://localhost:9999/transfer") {
-                session = this
-                print((if (state.value == State.LISTENING) "Получатель" else "Отправитель") + " подключен\n")
-                while(isActive) {
-                    if (state.value == State.LISTENING) {
-                        val fileSize = (incoming.receive() as Frame.Text).readText().toLong()
-                        print("Полученный размер файла: ${fileSize}b\n")
-                        val fileName = (incoming.receive() as Frame.Text).readText()
-                        print("Полученное имя файла: $fileName\n")
-                        val file = File("D:/Downloads/$fileName")
-                        file.createNewFile()
-                        var bytesLeft = fileSize
-                        while (bytesLeft > 0) {
-                            val iv = (incoming.receive() as Frame.Binary).readBytes()
-                            println("Полученный IV: ${iv.toHexString()}\n")
-                            val encryptedBytesPart = (incoming.receive() as Frame.Binary).readBytes()
-                            println("Полученные зашифрованные байты: ${encryptedBytesPart.toHexString()}\n")
-                            val bytesPart = encryptedBytesPart.encrypt(K, iv)
-                            println("Полученные исходные байты: ${bytesPart.toHexString()}\n")
-                            file.appendBytes(bytesPart)
-                            bytesLeft -= bytesPart.size
+            launch {
+                super.connect()
+                K = sharedSecretKey!!.first.toByteArray().hash()
+                httpClient.webSocket("ws://localhost:9876/transfer") {
+                    session = this
+                    print((if (state.value == State.LISTENING) "Получатель" else "Отправитель") + " подключен\n")
+                    while(isActive) {
+                        if (state.value == State.LISTENING) {
+                            val fileSize = (incoming.receive() as Frame.Text).readText().toLong()
+                            print("Полученный размер файла: ${fileSize}b\n")
+                            val fileName = (incoming.receive() as Frame.Text).readText()
+                            print("Полученное имя файла: $fileName\n")
+                            val file = File("D:/Downloads/$fileName")
+                            file.createNewFile()
+                            var bytesLeft = fileSize
+                            while (bytesLeft > 0) {
+                                val iv = (incoming.receive() as Frame.Binary).readBytes()
+                                println("Полученный IV: ${iv.toHexString()}\n")
+                                val encryptedBytesPart = (incoming.receive() as Frame.Binary).readBytes()
+                                println("Полученные зашифрованные байты: ${encryptedBytesPart.toHexString()}\n")
+                                val bytesPart = encryptedBytesPart.encrypt(K, iv)
+                                println("Полученные исходные байты: ${bytesPart.toHexString()}\n")
+                                file.appendBytes(bytesPart)
+                                bytesLeft -= bytesPart.size
+                            }
                         }
+                        delay(1000)
                     }
-                    delay(1000)
                 }
             }
         }
@@ -84,7 +90,6 @@ class EStreamClient(state: State) : Client {
         session.outgoing.send(Frame.Text(meta["name"].toString()))
         print("Отправленное название файла: ${meta["name"]}\n")
         while (bytesLeft > 0) {
-            val isFinal = bytesLeft < BUFFER_SIZE
             val start = length - bytesLeft
             val end = (start + BUFFER_SIZE).coerceAtMost(length)
             val dataPart = data.sliceArray(start until end)
