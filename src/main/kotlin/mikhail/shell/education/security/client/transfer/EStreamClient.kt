@@ -116,11 +116,11 @@ class EStreamClient(userID: String, state: State, host: String = "localhost") : 
         socket.close()
     }
     private suspend fun ByteArray.encrypt(key: ByteArray, iv: ByteArray): ByteArray {
-        ecnryptWriteChannel.writeFully(key, 0, key.size)
-        ecnryptWriteChannel.writeFully(iv, 0, iv.size)
-        ecnryptWriteChannel.writeFully(this, 0, size)
+        ecnryptWriteChannel.writeFully(key)
+        ecnryptWriteChannel.writeFully(iv)
+        ecnryptWriteChannel.writeFully(this)
         val receivedData = ByteArray(size)
-        ecnryptReadChannel.readAvailable(receivedData, 0, receivedData.size)
+        ecnryptReadChannel.readFully(receivedData)
         return receivedData
     }
     private fun generateIV(): ByteArray {

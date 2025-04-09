@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf4d5914-9eb0-4f50-b1e5-bbdebc62bac9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +71,7 @@
     &quot;Kotlin.EstreamClient1.executor&quot;: &quot;Debug&quot;,
     &quot;Kotlin.EstreamClient2.executor&quot;: &quot;Debug&quot;,
     &quot;Kotlin.EstreamClientApp1.executor&quot;: &quot;Debug&quot;,
-    &quot;Kotlin.EstreamReceiver.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.EstreamReceiver.executor&quot;: &quot;Run&quot;,
     &quot;Kotlin.EstreamSender.executor&quot;: &quot;Debug&quot;,
     &quot;Kotlin.MainKt (1).executor&quot;: &quot;Debug&quot;,
     &quot;Kotlin.MainKt.executor&quot;: &quot;Debug&quot;,
@@ -83,7 +79,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Магистратура/2 семестр/Data security/Practice3/EstreamApp&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Магистратура/2 семестр/Data security/Practice12/SecureServer&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;D:/Магистратура/2 семестр/Перспективные технологии защиты информации/Practice 1/SecureClient/src/main/kotlin/Main.kt&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -103,7 +99,7 @@
       <recent name="mikhail.shell.education.security.client.elliptic" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.EstreamSender">
+  <component name="RunManager" selected="Kotlin.EstreamReceiver">
     <configuration name="ProjectiveFunctionsTest.testDoublingProjectives" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -155,7 +151,7 @@
     <configuration name="EstreamReceiver" type="JetRunConfigurationType" singleton="true">
       <option name="MAIN_CLASS_NAME" value="mikhail.shell.education.security.client.transfer.MainKt" />
       <module name="SecureClient.main" />
-      <option name="PROGRAM_PARAMETERS" value="listen" />
+      <option name="PROGRAM_PARAMETERS" value="listen digit-verse.ru" />
       <shortenClasspath name="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -207,7 +203,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/Main.kt</url>
-          <line>57</line>
+          <line>58</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
