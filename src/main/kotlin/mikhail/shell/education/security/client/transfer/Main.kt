@@ -33,8 +33,9 @@ suspend fun main(args: Array<String>) {
             return
         }
     }
+    val host = if (args.size > 1) args[1] else "localhost"
     val userID = UUID.randomUUID().toString()
-    val client: Client = EStreamClient(userID, state)
+    val client: Client = EStreamClient(userID, state, host)
     client.connect()
     application {
         Window(
