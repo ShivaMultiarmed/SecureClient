@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf4d5914-9eb0-4f50-b1e5-bbdebc62bac9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/Main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,11 +33,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="SecureClient" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="SecureClient" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -69,33 +65,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build SecureClient.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.ProjectiveFunctionsTest.testDoublingProjectives.executor": "Run",
-    "Gradle.ProjectiveFunctionsTest.testProjectiveComposing.executor": "Run",
-    "Kotlin.EstreamClient.executor": "Debug",
-    "Kotlin.EstreamClient1.executor": "Debug",
-    "Kotlin.EstreamClient2.executor": "Debug",
-    "Kotlin.EstreamClientApp1.executor": "Debug",
-    "Kotlin.EstreamReceiver.executor": "Debug",
-    "Kotlin.EstreamSender.executor": "Debug",
-    "Kotlin.MainKt (1).executor": "Debug",
-    "Kotlin.MainKt.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Магистратура/2 семестр/Перспективные технологии защиты информации/Practice 1 - 2/SecureServer",
-    "onboarding.tips.debug.path": "D:/Магистратура/2 семестр/Перспективные технологии защиты информации/Practice 1/SecureClient/src/main/kotlin/Main.kt"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build SecureClient.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ProjectiveFunctionsTest.testDoublingProjectives.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ProjectiveFunctionsTest.testProjectiveComposing.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.EstreamClient.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.EstreamClient1.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.EstreamClient2.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.EstreamClientApp1.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.EstreamReceiver.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.EstreamSender.executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.MainKt (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Магистратура/2 семестр/Data security/Practice3/EstreamApp&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;D:/Магистратура/2 семестр/Перспективные технологии защиты информации/Practice 1/SecureClient/src/main/kotlin/Main.kt&quot;
   },
-  "keyToStringList": {
-    "kotlin-gradle-user-dirs": [
-      "C:\\Users\\Mikhail_Shell\\.gradle"
+  &quot;keyToStringList&quot;: {
+    &quot;kotlin-gradle-user-dirs&quot;: [
+      &quot;C:\\Users\\Mikhail_Shell\\.gradle&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Магистратура\2 семестр\Перспективные технологии защиты информации\Practice 1\SecureClient\src\main\kotlin\mikhail\shell\education\security\client\common" />
@@ -213,89 +209,6 @@
           <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/Main.kt</url>
           <line>50</line>
           <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt</url>
-          <line>56</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt</url>
-          <line>53</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt</url>
-          <line>52</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt</url>
-          <line>51</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt</url>
-          <line>50</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/elliptic/MqvEllipticClient.kt</url>
-          <line>49</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>49</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>50</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>51</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>52</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>53</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>54</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>55</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>57</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>56</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/mikhail/shell/education/security/client/transfer/EStreamClient.kt</url>
-          <line>58</line>
-          <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

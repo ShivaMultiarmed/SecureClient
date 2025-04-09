@@ -21,10 +21,17 @@ import java.util.UUID
 
 suspend fun main(args: Array<String>) {
     val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    if (args.isEmpty()) {
+        println("Specify client role (transfer/listen) and host (default is local host)")
+        return
+    }
     val state = when(args[0]) {
         "transfer" -> State.TRANSFERRING
         "listen" -> State.LISTENING
-        else -> throw IllegalStateException()
+        else -> {
+            println("Specify client role (transfer/listen) and host (default is local host)")
+            return
+        }
     }
     val userID = UUID.randomUUID().toString()
     val client: Client = EStreamClient(userID, state)

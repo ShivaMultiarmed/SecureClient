@@ -62,6 +62,7 @@ tasks.create<Jar>("estream") {
     from(sourceSets.main.get().output) {
         include("mikhail/shell/education/security/client/common/**")
         include("mikhail/shell/education/security/client/transfer/**")
+        include("mikhail/shell/education/security/client/elliptic/**")
     }
     dependsOn(configurations.runtimeClasspath)
     duplicatesStrategy = EXCLUDE

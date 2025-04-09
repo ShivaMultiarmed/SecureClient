@@ -20,11 +20,10 @@ enum class State {
     TRANSFERRING, LISTENING
 }
 
-class EStreamClient(userID: String, state: State) : MqvEllipticClient(userID) {
+class EStreamClient(userID: String, state: State, host: String = "localhost") : MqvEllipticClient(userID, host) {
     private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private companion object {
         const val BUFFER_SIZE = 1024
-        //val K = BigInteger("43327941536451757547021212229086144792243993750900499115474182045548247479320").toByteArray().hash()
     }
     private lateinit var K: ByteArray
     private val random: Random = SecureRandom()
@@ -49,7 +48,7 @@ class EStreamClient(userID: String, state: State) : MqvEllipticClient(userID) {
             launch {
                 super.connect()
                 K = sharedSecretKey!!.first.toByteArray().hash()
-                httpClient.webSocket("ws://localhost:9876/transfer") {
+                httpClient.webSocket("ws://$host:9876/transfer") {
                     session = this
                     print((if (state.value == State.LISTENING) "Получатель" else "Отправитель") + " подключен\n")
                     while(isActive) {

@@ -6,15 +6,11 @@ import mikhail.shell.education.security.client.common.evaluateComposition
 import mikhail.shell.education.security.client.common.generateSecretKey
 import java.math.BigInteger
 
-open class MqvEllipticClient(userID: String): BaseEllipticClient(userID) {
+open class MqvEllipticClient(userID: String, val host: String = "localhost"): BaseEllipticClient(userID) {
     private var secretSessionKey: BigInteger? = null
     var publicSessionKey: Pair<BigInteger, BigInteger>? = null
-    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun connect() {
-        client.webSocket("ws://127.0.0.1:9876/handshake") {
+        client.webSocket("ws://$host:9876/handshake") {
             send(Frame.Text(name))
             p = receiveNumber()
             println("$name: p = $p")
@@ -56,5 +52,9 @@ open class MqvEllipticClient(userID: String): BaseEllipticClient(userID) {
                 .evaluateComposition(secretSessionKey!! + e * secretKey!!, p!!, a!!)
             println("$name: общий секретный ключ = $sharedSecretKey")
         }
+    }
+
+    override suspend fun transfer(meta: Map<String, Any>, data: ByteArray) {
+        TODO("Not yet implemented")
     }
 }
